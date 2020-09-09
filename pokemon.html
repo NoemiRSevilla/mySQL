@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pokemon</title>
+</head>
+<body>
+    <img src="http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png">
+
+    <script>
+    function displayPokemonImages(){
+        var output = '';
+        for (var i =1; i<152; i++)
+    }
+    
+    function displayWorld(){
+        var output = '';
+
+        for (var i=0; i<world.length; i++){
+            output += "<div class='row'>";
+            for (var j=0; j<world[i].length; j++){
+                if (world[i][j]==4)
+                    output += "<div class='ghost'></div>";
+                else if (world[i][j]==3)
+                    output += "<div class='cherry'></div>";
+                else if (world[i][j]==2)
+                    output += "<div class='brick'></div>";
+                else if(world[i][j]==1)
+                    output+= "<div class='coin'></div>";
+                else if (world [i][j]==0)
+                    output+="<div class='empty'></div>";
+
+            }
+            output += "</div>";
+        }
+         // console.log(output);
+        document.getElementById('world').innerHTML = output;
+    }
+    function displayPacman(){
+        document.getElementById('pacman').style.top =pacman.y*20+"px";
+        document.getElementById('pacman').style.left =pacman.x*20+"px";
+    }
+    function displayScore(){
+        document.getElementById('score').innerHTML =score;
+    }
+    // var lives = 0;
+    // function RemoveLife(){
+    //     while (lives<5)
+    //         if (world[pacman.y][pacman.x]==4){
+    //             document.getElementByClassName('life'+lives).style.display="none";
+    //             lives++;    
+    //     }
+    // }
+
+    displayWorld();
+    displayPacman();
+    displayScore();
+    // RemoveLife();
+
+
+    document.onkeydown = function(e){
+        if (e.keyCode==37 && world[pacman.y][pacman.x-1]!==2){
+            pacman.x--;
+            document.getElementById('pacman').innerHTML = "<img id='pacmanLeft' src='./img/pacman.gif'>";
+
+        }
+        else if (e.keyCode==39 && world[pacman.y][pacman.x+1]!==2){
+            pacman.x++;
+            document.getElementById('pacman').innerHTML = "<img id='pacmanRight' src='./img/pacman.gif'>";
+        }
+        if (e.keyCode==40 && world[pacman.y+1][pacman.x]!==2){
+            pacman.y++;
+            document.getElementById('pacman').innerHTML = "<img id='pacmanDown' src='./img/pacman.gif'>";
+        }
+        else if (e.keyCode==38 && world[pacman.y-1][pacman.x]!==2){
+            pacman.y--;
+            document.getElementById('pacman').innerHTML = "<img id='pacmanUp' src='./img/pacman.gif'>";
+        }
+        if (world[pacman.y][pacman.x]==1){
+            world[pacman.y][pacman.x]=0;
+            score+=10;
+            displayWorld();
+            displayScore();
+
+        }
+        else if (world[pacman.y][pacman.x]==3){
+        world[pacman.y][pacman.x]=0;
+        score+=50;
+        displayWorld();
+        displayScore();
+
+        }
+        // console.log(e.keyCode);
+        displayPacman();
+    }
+    </script>
+</body>
+</html>
